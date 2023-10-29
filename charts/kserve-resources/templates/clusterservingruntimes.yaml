@@ -389,7 +389,7 @@ spec:
         - --file_system_poll_wait_seconds=0
         - --grpc_bind_address=127.0.0.1
         - --rest_bind_address=127.0.0.1
-      image: openvino/model_server:2022.2
+      image: openvino/model_server:2023.1
       name: ovms
       resources:
         limits:

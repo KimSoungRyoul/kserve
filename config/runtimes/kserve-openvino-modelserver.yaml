@@ -1,0 +1,42 @@
+apiVersion: serving.kserve.io/v1alpha1
+kind: ClusterServingRuntime
+metadata:
+  name: kserve-openvino-modelserver
+spec:
+  annotations:
+    prometheus.kserve.io/port: '8000'
+    prometheus.kserve.io/path: "/metrics"
+  supportedModelFormats:
+    - name: tensorflow
+      version: "1"
+      autoSelect: true
+    - name: tensorflow
+      version: "2"
+      autoSelect: true
+    - name: onnx
+      version: "1"
+      autoSelect: true
+    - name: pytorch
+      version: "1"
+    - name: openvino
+      version: "1"
+      autoSelect: true
+  protocolVersions:
+    - v2
+    - grpc-v2
+  containers:
+    - name: kserve-container
+      image: kserve-openvino-modelserver:replace
+      args:
+        - --model_name={{.Name}}
+        - --model_path=/mnt/models
+        - --port=9000
+        - --rest_port=8000
+        - --layout=NHWC:NCHW
+      resources:
+        requests:
+          cpu: "1"
+          memory: 2Gi
+        limits:
+          cpu: "1"
+          memory: 2Gi

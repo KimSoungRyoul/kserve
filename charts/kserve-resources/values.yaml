@@ -62,6 +62,9 @@ kserve:
     tritonserver:
       image: nvcr.io/nvidia/tritonserver
       tag: 21.09-py3
+    openvino-modelserver:
+      image: openvino/model_server
+      tag: 2023.1
     pmmlserver:
       image: kserve/pmmlserver
       tag: *defaultVersion
